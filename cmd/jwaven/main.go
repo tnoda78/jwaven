@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	jwaven := jwaven.New()
+	jwaven := jwaven.NewJwaven()
 	jwaven.Output()
 }
