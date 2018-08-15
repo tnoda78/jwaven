@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/tnoda78/jwaven/format"
 	"github.com/tnoda78/jwaven/page"
 )
 
@@ -13,6 +14,7 @@ import (
 type Jwaven struct {
 	SearchTime time.Time
 	Now        bool
+	Format     string
 }
 
 // NewJwaven creates Jwaven.
@@ -46,9 +48,15 @@ func (jwaven *Jwaven) Output() {
 		songs = songs[:1]
 	}
 
-	for _, song := range songs {
-		fmt.Println(song.GetFormat())
+	var formatter format.Format
+
+	if jwaven.Format == "standard" {
+		formatter = &format.Standard{}
+	} else {
+		formatter = &format.Standard{}
 	}
+
+	fmt.Fprint(os.Stdout, formatter.GetFormatedText(songs))
 }
 
 // GetYear returns SearchTime year.
@@ -96,7 +104,16 @@ func (jwaven *Jwaven) setFlags() {
 	flag.BoolVar(&yesterday, "y", false, "")
 	flag.BoolVar(&yesterday, "yesterday", false, "")
 
+	var format string
+	flag.StringVar(&format, "f", "standard", "")
+	flag.StringVar(&format, "format", "standard", "")
+
 	flag.Parse()
+
+	if !validFormatParam(format) {
+		defaultHelpMessage()
+		os.Exit(1)
+	}
 
 	flagCount := 0
 	if date != "" {
@@ -129,6 +146,7 @@ func (jwaven *Jwaven) setFlags() {
 			os.Exit(1)
 		}
 		jwaven.SearchTime = t
+		jwaven.Format = format
 	} else if now || latest {
 		jwaven.SearchTime = time.Now()
 	} else {
@@ -136,6 +154,20 @@ func (jwaven *Jwaven) setFlags() {
 	}
 
 	jwaven.Now = now
+}
+
+func validFormatParam(format string) bool {
+	validParams := []string{
+		"standard",
+	}
+
+	for _, s := range validParams {
+		if format == s {
+			return true
+		}
+	}
+
+	return false
 }
 
 func defaultHelpMessage() {
@@ -148,6 +180,8 @@ func defaultHelpMessage() {
       昨日の時刻の前後60分の楽曲
     --date -d {yyyy-MM-dd hh:mm}
       指定日時の前後60分の楽曲
+    --format -f {standard}
+      指定フォーマットで出力をする
 `
 
 	fmt.Fprintf(os.Stderr, message)
