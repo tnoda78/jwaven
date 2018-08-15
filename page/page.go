@@ -46,6 +46,7 @@ func NewPage(year int, month int, day int, hour int, minute int) (*Page, error) 
 	return page, nil
 }
 
+// GetSongs returns song list.
 func (page *Page) GetSongs() ([]*song.Song, error) {
 	var songs []*song.Song
 

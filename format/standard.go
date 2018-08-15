@@ -7,15 +7,19 @@ import (
 	"github.com/tnoda78/jwaven/song"
 )
 
+// Standard is struct for standard format.
 type Standard struct{}
 
+// HEADER is header's string.
 const HEADER = `+------------+----------+------------------------------------+------------------------------------+
 |       Date |     Time |                        Artist Name |                              Title |
 +------------+----------+------------------------------------+------------------------------------+
 `
 
+// FOOTER is footer's string
 const FOOTER = "+------------+----------+------------------------------------+------------------------------------+\n"
 
+// GetFormatedText returns formated text.
 func (standard *Standard) GetFormatedText(songs []*song.Song) string {
 	out := HEADER
 

@@ -6,7 +6,7 @@ import (
 	"github.com/tnoda78/jwaven/song"
 )
 
-func TestGetFormatedText(t *testing.T) {
+func TestGetFormatedTextStandard(t *testing.T) {
 	standard := &Standard{}
 	songs := getSongs()
 	expect := `+------------+----------+------------------------------------+------------------------------------+

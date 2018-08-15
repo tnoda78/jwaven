@@ -52,6 +52,8 @@ func (jwaven *Jwaven) Output() {
 
 	if jwaven.Format == "standard" {
 		formatter = &format.Standard{}
+	} else if jwaven.Format == "searchgoogle" {
+		formatter = &format.SearchGoogle{}
 	} else {
 		formatter = &format.Standard{}
 	}
@@ -146,7 +148,6 @@ func (jwaven *Jwaven) setFlags() {
 			os.Exit(1)
 		}
 		jwaven.SearchTime = t
-		jwaven.Format = format
 	} else if now || latest {
 		jwaven.SearchTime = time.Now()
 	} else {
@@ -154,11 +155,13 @@ func (jwaven *Jwaven) setFlags() {
 	}
 
 	jwaven.Now = now
+	jwaven.Format = format
 }
 
 func validFormatParam(format string) bool {
 	validParams := []string{
 		"standard",
+		"searchgoogle",
 	}
 
 	for _, s := range validParams {
@@ -180,7 +183,7 @@ func defaultHelpMessage() {
       昨日の時刻の前後60分の楽曲
     --date -d {yyyy-MM-dd hh:mm}
       指定日時の前後60分の楽曲
-    --format -f {standard}
+    --format -f {standard,searchgoogle}
       指定フォーマットで出力をする
 `
 

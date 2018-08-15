@@ -12,4 +12,6 @@ jwaven [options]
       昨日の時刻の前後60分の楽曲
     --date -d {yyyy-MM-dd hh:mm}
       指定日時の前後60分の楽曲
+    --format -f {standard,searchgoogle}
+      指定フォーマットで出力をする
 ```
