@@ -42,9 +42,8 @@ func (jwaven *Jwaven) Output() {
 		fmt.Println("ERROR.")
 	}
 
-	if jwaven.Now && len(songs) > 0 {
-		fmt.Println(songs[0].GetFormat())
-		return
+	if jwaven.Now {
+		songs = songs[:1]
 	}
 
 	for _, song := range songs {
@@ -93,10 +92,6 @@ func (jwaven *Jwaven) setFlags() {
 	flag.BoolVar(&latest, "l", false, "")
 	flag.BoolVar(&latest, "latest", false, "")
 
-	var today bool
-	flag.BoolVar(&today, "t", false, "")
-	flag.BoolVar(&today, "today", false, "")
-
 	var yesterday bool
 	flag.BoolVar(&yesterday, "y", false, "")
 	flag.BoolVar(&yesterday, "yesterday", false, "")
@@ -111,9 +106,6 @@ func (jwaven *Jwaven) setFlags() {
 		flagCount++
 	}
 	if latest {
-		flagCount++
-	}
-	if today {
 		flagCount++
 	}
 	if yesterday {
@@ -137,7 +129,7 @@ func (jwaven *Jwaven) setFlags() {
 			os.Exit(1)
 		}
 		jwaven.SearchTime = t
-	} else if now || latest || today {
+	} else if now || latest {
 		jwaven.SearchTime = time.Now()
 	} else {
 		jwaven.SearchTime = time.Now().AddDate(0, 0, -1)
@@ -151,8 +143,6 @@ func defaultHelpMessage() {
     --now -n
       今かかっている曲
     --latest -l
-      現在時刻の前後60分の楽曲
-    --today -t
       現在時刻の前後60分の楽曲
     --yesterday -y
       昨日の時刻の前後60分の楽曲

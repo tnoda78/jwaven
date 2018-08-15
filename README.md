@@ -8,8 +8,6 @@ jwaven [options]
       今かかっている曲
     --latest -l
       現在時刻の前後60分の楽曲
-    --today -t
-      現在時刻の前後60分の楽曲
     --yesterday -y
       昨日の時刻の前後60分の楽曲
     --date -d {yyyy-MM-dd hh:mm}
