@@ -10,18 +10,12 @@ import (
 // Standard is struct for standard format.
 type Standard struct{}
 
-// HEADER is header's string.
-const HEADER = `+------------+----------+------------------------------------+------------------------------------+
+// GetFormatedText returns formated text.
+func (standard *Standard) GetFormatedText(songs []*song.Song) string {
+	out := `+------------+----------+------------------------------------+------------------------------------+
 |       Date |     Time |                        Artist Name |                              Title |
 +------------+----------+------------------------------------+------------------------------------+
 `
-
-// FOOTER is footer's string
-const FOOTER = "+------------+----------+------------------------------------+------------------------------------+\n"
-
-// GetFormatedText returns formated text.
-func (standard *Standard) GetFormatedText(songs []*song.Song) string {
-	out := HEADER
 
 	for _, song := range songs {
 		artistCount := 34 + (utf8.RuneCountInString(song.ArtistName)-len(song.ArtistName))/2
@@ -30,5 +24,5 @@ func (standard *Standard) GetFormatedText(songs []*song.Song) string {
 		out = out + fmt.Sprintf(format, song.Date, song.Time, song.ArtistName, song.Title)
 	}
 
-	return out + FOOTER
+	return out + "+------------+----------+------------------------------------+------------------------------------+\n"
 }
