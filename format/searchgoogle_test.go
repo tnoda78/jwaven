@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestGetFormatedText(t *testing.T) {
+func TestGetFormatedTextSearchGoogle(t *testing.T) {
 	formatter := &SearchGoogle{}
 	songs := getSongs()
 
