@@ -2,6 +2,8 @@
 
 CLI tool for getting j'wave on air song list.
 
+![Travis (.org)](https://img.shields.io/travis/tnoda78/jwaven.svg)
+![Github All Releases](https://img.shields.io/github/downloads/tnoda78/jwaven/total.svg)
 ```
 jwaven [options]
     --now -n
