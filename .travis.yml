@@ -3,9 +3,6 @@ language: go
 go:
   - "1.10.x"
 
-install:
-  - go get -u github.com/goreleaser/goreleaser
-
 script:
   - make lint
   - make test
