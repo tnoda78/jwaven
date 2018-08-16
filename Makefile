@@ -1,23 +1,23 @@
 NAME := jwaven
-VERSION := 0.4.0
 RELEASE_DIR := release
 
 setup:
-	go get golang.org/x/vgo
+	go get -u github.com/golang/dep/cmd/dep
 	go get github.com/golang/lint/golint
 	go get golang.org/x/tools/cmd/goimports
 	go get github.com/Songmu/make2help/cmd/make2help
 
 deps: setup
+	dep ensure
 
 lint: deps
-	golint -set_exit_status ./...
+	go list ./... | xargs -L1 golint -set_exit_status
 
 test: deps
-	vgo test ./...
+	go test ./...
 
 build: deps
-	vgo build -o ${RELEASE_DIR}/${GOOS}_${GOARCH}/${NAME}${SUFFIX} cmd/jwaven/main.go
+	go build -o ${RELEASE_DIR}/${GOOS}_${GOARCH}/${NAME}${SUFFIX} cmd/jwaven/main.go
 
 build-darwin-amd64:
 	@$(MAKE) build GOOS=darwin GOARCH=amd64
