@@ -1,0 +1,75 @@
+<head>
+    <title>jwaven</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="CLI tool for getting 'J-WAVE on air' song list.">
+    <meta property="og:url" content="https://tnoda78.github.io/jwaven/" />
+    <meta property="og:site_name"  content="jwaven" />
+    <meta property="og:title" content="jwaven" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="CLI tool for getting 'J-WAVE on air' song list." />
+    <style>
+<!--
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+pre {
+    background-color: #e2e2e2;
+    margin: 5px;
+    padding: 0px 3px 0px 3px;
+    border-radius: 3px;
+}
+
+img {
+    padding: 12px 34px 11px 11px;
+    max-width: 96%;
+}
+
+-->
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>jwaven</h1>
+        <p>CLI tool for getting "J-WAVE on air" song list.</p>
+        <h2>Download</h2>
+        <p>Visit <a href="https://github.com/tnoda78/jwaven/releases" target="_blank">release page</a></p>
+        <h2>Usage</h2>
+        <pre><code>
+        jwaven [options]
+        --now -n
+          今かかっている曲
+        --latest -l
+          現在時刻の前後60分の楽曲
+        --yesterday -y
+          昨日の時刻の前後60分の楽曲
+        --date -d {yyyy-MM-dd hh:mm}
+          指定日時の前後60分の楽曲
+        --format -f {standard,searchgoogle,json,csv}
+          指定フォーマットで出力をする
+        </code></pre>
+        <h2>Example</h2>
+        <pre><code>
+        jwaven --now
+        </code></pre>
+        <img src="01.gif">
+        <pre><code>
+        jwaven --latest
+        </code></pre>
+        <img src="02.gif">
+        <pre><code>
+        jwaven --latest --format json | jq .
+        </code></pre>
+        <img src="03.gif">
+        <pre><code>
+        jwaven --latest --format csv > jwaven.csv
+        cat jwaven.csv
+        </code></pre>
+        <img src="04.gif">
+    </div>
+</body>
