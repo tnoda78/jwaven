@@ -3,6 +3,7 @@
 CLI tool for getting j'wave on air song list.
 
 [![Build Status](https://travis-ci.org/tnoda78/jwaven.svg?branch=master)](https://travis-ci.org/tnoda78/jwaven)
+![GitHub release](https://img.shields.io/github/release/tnoda78/jwaven.svg)
 ![Github All Releases](https://img.shields.io/github/downloads/tnoda78/jwaven/total.svg)
 ![GitHub](https://img.shields.io/github/license/tnoda78/jwaven.svg)
 
