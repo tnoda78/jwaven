@@ -6,8 +6,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/tnoda78/jwaven/caching"
 	"github.com/tnoda78/jwaven/format"
 	"github.com/tnoda78/jwaven/page"
+	"github.com/tnoda78/jwaven/song"
 )
 
 // Jwaven is struct for CLI Tool.
@@ -26,22 +28,39 @@ func NewJwaven() *Jwaven {
 func (jwaven *Jwaven) Output() {
 	jwaven.setFlags()
 
-	page, err := page.NewPage(
-		jwaven.GetYear(),
-		jwaven.GetMonth(),
-		jwaven.GetDay(),
-		jwaven.GetHour(),
-		jwaven.GetMinute(),
-	)
+	var err error
+	var exist bool
+	exist, err = caching.IsExistCache(jwaven.SearchTime)
 
 	if err != nil {
 		fmt.Println("ERROR.")
 	}
 
-	songs, err := page.GetSongs()
+	var songs []*song.Song
 
-	if err != nil {
-		fmt.Println("ERROR.")
+	if exist {
+		songs, err = caching.GetSongsFromCache(jwaven.SearchTime)
+
+		if err != nil {
+			fmt.Println("ERROR.")
+		}
+	} else {
+		var p *page.Page
+		p, err = page.NewPage(jwaven.SearchTime)
+
+		if err != nil {
+			fmt.Println("ERROR.")
+		}
+
+		songs, err = p.GetSongs()
+
+		if err != nil {
+			fmt.Println("ERROR.")
+		}
+
+		if err = caching.Cache(jwaven.SearchTime, songs); err != nil {
+			fmt.Println("ERROR.")
+		}
 	}
 
 	if jwaven.Now {
