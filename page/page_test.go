@@ -3,10 +3,17 @@ package page
 import (
 	"strings"
 	"testing"
+	"time"
 )
 
 func NotTestNewPage(t *testing.T) {
-	page, err := NewPage(2018, 8, 15, 10, 10)
+	searchTime, err := time.Parse("2006-01-02 15:04", "2018-08-15 10:10")
+
+	if err != nil {
+		t.Fatal("Can not parse time")
+	}
+
+	page, err := NewPage(searchTime)
 
 	if err != nil {
 		t.Fatal("Can not get a page")
@@ -18,7 +25,13 @@ func NotTestNewPage(t *testing.T) {
 }
 
 func NotTestGetSongs(t *testing.T) {
-	page, err := NewPage(2018, 8, 15, 10, 10)
+	searchTime, err := time.Parse("2006-01-02 15:04", "2018-08-15 10:10")
+
+	if err != nil {
+		t.Fatal("Can not parse time")
+	}
+
+	page, err := NewPage(searchTime)
 
 	songs, err := page.GetSongs()
 
