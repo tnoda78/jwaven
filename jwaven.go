@@ -75,6 +75,8 @@ func (jwaven *Jwaven) Output() {
 		formatter = &format.SearchGoogle{}
 	} else if jwaven.Format == "searchgpm" {
 		formatter = &format.SearchGPM{}
+	} else if jwaven.Format == "searchyoutube" {
+		formatter = &format.SearchYoutube{}
 	} else if jwaven.Format == "json" {
 		formatter = &format.JSON{}
 	} else if jwaven.Format == "csv" {
@@ -188,6 +190,7 @@ func validFormatParam(format string) bool {
 		"standard",
 		"searchgoogle",
 		"searchgpm",
+		"searchyoutube",
 		"json",
 		"csv",
 	}
@@ -211,7 +214,7 @@ func defaultHelpMessage() {
       昨日の時刻の前後60分の楽曲
     --date -d {yyyy-MM-dd hh:mm}
       指定日時の前後60分の楽曲
-    --format -f {standard,searchgoogle,searchgpm,json,csv}
+    --format -f {standard,searchgoogle,searchgpm,searchyoutube,json,csv}
       指定フォーマットで出力をする
 `
 
