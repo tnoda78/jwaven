@@ -167,8 +167,11 @@ func (jwaven *Jwaven) setFlags() {
 		now = true
 	}
 
+	loc, _ := time.LoadLocation("Asia/Tokyo")
+
 	if date != "" {
 		t, err := time.Parse("2006-01-02 15:04", date)
+		t.In(loc)
 		if err != nil {
 			defaultHelpMessage()
 			fmt.Println(err)
@@ -176,9 +179,9 @@ func (jwaven *Jwaven) setFlags() {
 		}
 		jwaven.SearchTime = t
 	} else if now || latest {
-		jwaven.SearchTime = time.Now()
+		jwaven.SearchTime = time.Now().In(loc)
 	} else {
-		jwaven.SearchTime = time.Now().AddDate(0, 0, -1)
+		jwaven.SearchTime = time.Now().In(loc).AddDate(0, 0, -1)
 	}
 
 	jwaven.Now = now
