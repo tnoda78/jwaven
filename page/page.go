@@ -58,12 +58,14 @@ func (page *Page) GetSongs() ([]*song.Song, error) {
 		return nil, err
 	}
 
-	doc.Find("ul.list li").Each(func(i int, s *goquery.Selection) {
+	doc.Find(".song").Each(func(i int, s *goquery.Selection) {
+		dataTime := s.Find("p.time span").Text()
+
 		song := &song.Song{
-			Title:      s.Find("p.title span.w").Text(),
-			ArtistName: s.Find("p.artist_search").Text(),
-			Date:       s.Find("p.date").Text(),
-			Time:       s.Find("p.time").Text(),
+			Title:      s.Find(".song_info h4").Text(),
+			ArtistName: s.Find(".song_info p.txt_artist span").Text(),
+			Date:       strings.Split(dataTime, " ")[0],
+			Time:       strings.Split(dataTime, " ")[1],
 		}
 
 		songs = append(songs, song)
